@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SmartCheckIn Attendance System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <style>
+      body {
+        background-color: #f2f2f2;
+      }
+      h1 {
+        font-size: 3rem;
+        margin: 0 auto;
+        color: #333333;
+      }
+      .card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        margin: 1rem;
+        padding: 2rem;
+      }
+      .card-header {
+        background-color: #2026b2;
+        border-radius: 10px 10px 0px 0px;
+        color: #ffffff;
+        padding: 1rem;
+        font-size: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .form-control {
+        border-radius: 5px;
+        border: none;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+      .btn {
+        border-radius: 5px;
+        border: none;
+        font-size: 1.5rem;
+        padding: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+      .btn-primary {
+        background-color: #fb634f;
+      }
+      .btn-secondary {
+        background-color: #ec496b;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+      }
+      th {
+        background-color: #2026b2;
+        color: #ffffff;
+        padding: 1rem;
+        font-size: 1.5rem;
+      }
+      td {
+        padding: 1rem;
+        font-size: 1.5rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body style="background-color: #f0f2f5">
+    <div class="container-fluid py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <h1 class="text-center mb-5 display-3">
+            Smart Check In Attendance System
+          </h1>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card rounded-lg shadow-lg border-0">
+            <div class="card-body">
+              <h2 class="card-title text-center mb-4">
+                Today's Attendance
+                <i class="material-icons align-middle">assignment</i>
+              </h2>
+              <div class="d-grid">
+                <a href="/start" class="btn btn-lg btn-danger mb-4">
+                  Take Attendance
+                  <i class="material-icons align-middle">beenhere</i>
+                </a>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>Sr No</th>
+                      <th>Name</th>
+                      <th>ID</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if l %} {% for i in range(l) %}
+                    <tr>
+                      <td>{{ i+1 }}</td>
+                      <td>{{ names[i] }}</td>
+                      <td>{{ rolls[i] }}</td>
+                      <td>{{ times[i] }}</td>
+                    </tr>
+                    {% endfor %} {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 col-lg-6">
+          <div class="card rounded-lg shadow-lg border-0">
+            <div class="card-body">
+              <h2 class="card-title text-center mb-4">
+                Add New User
+                <i class="material-icons align-middle"
+                  >control_point_duplicate</i
+                >
+              </h2>
+              <form action="/add" method="POST" enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                  <label for="newusername" class="form-label"
+                    ><b>Enter New User Name*</b></label
+                  >
+                  <input
+                    type="text"
+                    id="newusername"
+                    name="newusername"
+                    class="form-control"
+                    placeholder="Full Name"
+                    required
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="newuserid" class="form-label"
+                    ><b>Enter New User Id*</b></label
+                  >
+                  <input
+                    type="text"
+                    id="newuserid"
+                    name="newuserid"
+                    class="form-control"
+                    placeholder="Admission No"
+                    required
+                  />
+                </div>
+                <div class="d-grid">
+                  <button
+                    type="submit"
+                    class="btn btn-lg btn-primary mb-3"
+                    style="padding-top: 10px; padding-bottom: 10px"
+                  >
+                    Add New User
+                  </button>
+                </div>
+              </form>
+              <h5 class="mt-5 text-center">
+                <i>Total Users in Database: {{totalreg}}</i>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
